@@ -1,93 +1,139 @@
-export const defaultBoard = () => {
-  return [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-  ]
+export const gameSize = 3;
+
+export const defaultBoard = (size) => {
+  return Array(size).fill().map(()=>Array(size).fill())
 };
 
 export const checkForWinner = (game, lastX, lastY, callback) => {
   let val = game[lastY][lastX];
-   leftCheck(val, game, lastX, lastY, 1, callback);
-   rightCheck(val, game, lastX, lastY, 1, callback);
-   upCheck(val, game, lastX, lastY, 1, callback);
-   downCheck(val, game, lastX, lastY, 1, callback);
-   diagUpRightCheck(val, game, lastX, lastY, 1, callback);
-   diagUpLeftCheck(val, game, lastX, lastY, 1, callback);
-   diagDownRightCheck(val, game, lastX, lastY, 1, callback);
-   diagDownLeftCheck(val, game, lastX, lastY, 1, callback);
-};
 
-const leftCheck = (val, game, x, y, count, callback) => {  
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y][x - 1] === val) leftCheck(val, game, x - 1, y, count + 1, callback);
-  return;
-};
+  const horizontalCheck = () => {
+    let count = 1;
 
-const rightCheck = (val, game, x, y, count, callback) => {
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y][x + 1] === val) rightCheck(val, game, x + 1, y, count + 1, callback);
-  return;
-};
+    const leftCheck = (x, y) => {  
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y][x - 1] === val) {
+        count++;
+        leftCheck(x - 1, y);
+      }
+      return;
+    };
+    
+    const rightCheck = (x, y) => {
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y][x + 1] === val) {
+        count++;
+        rightCheck(x + 1, y);
+      }
+      return;
+    };
 
-const upCheck = (val, game, x, y, count, callback) => {
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y - 1] && game[y - 1][x] === val) upCheck(val, game, x, y - 1, count + 1, callback);
-  return;
-};
+    leftCheck(lastX, lastY);
+    rightCheck(lastX, lastY);
+  };
 
-const downCheck = (val, game, x, y, count, callback) => {
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y + 1] && game[y + 1][x] === val) downCheck(val, game, x, y + 1, count + 1, callback);
-  return;
-};
+  const vertCheck = () => {
+    let count = 1;
 
-const diagUpRightCheck = (val, game, x, y, count, callback) => {
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y - 1] && game[y - 1][x + 1] === val) diagUpRightCheck(val, game, x + 1, y - 1, count + 1, callback);
-  return;
-};
+    const upCheck = (x, y) => {
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y - 1] && game[y - 1][x] === val) {
+        count++;
+        upCheck(x, y - 1);
+      }
+      return;
+    };
+    
+    const downCheck = (x, y) => {
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y + 1] && game[y + 1][x] === val) {
+        count++;
+        downCheck(x, y + 1);
+      }
+      return;
+    };
 
-const diagUpLeftCheck = (val, game, x, y, count, callback) => {
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y - 1] && game[y - 1][x - 1] === val) diagUpLeftCheck(val, game, x - 1, y - 1, count + 1, callback);
-  return;
-};
+    upCheck(lastX, lastY);
+    downCheck(lastX, lastY);
+  };
 
-const diagDownLeftCheck = (val, game, x, y, count, callback) => {
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y + 1] && game[y + 1][x - 1] === val) diagDownLeftCheck(val, game, x - 1, y + 1, count + 1, callback);
-  return;
-};
+  const diag1Check = () => {
+    let count = 1;
 
-const diagDownRightCheck = (val, game, x, y, count, callback) => {
-  if (count === 3) {
-    callback(val);
-    return;
-  }
-  if (game[y + 1] && game[y + 1][x + 1] === val) diagDownRightCheck(val, game, x + 1, y + 1, count + 1, callback);
-  return;
-};
+    const diagUpRightCheck = (x, y) => {
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y - 1] && game[y - 1][x + 1] === val) {
+        count++;
+        diagUpRightCheck(x + 1, y - 1);
+      }
+      return;
+    };
+    
+    const diagDownLeftCheck = (x, y) => {
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y + 1] && game[y + 1][x - 1] === val) {
+        count++;
+        diagDownLeftCheck(x - 1, y + 1);
+      }
+      return;
+    };
 
+    diagDownLeftCheck(lastX, lastY);
+    diagUpRightCheck(lastX, lastY);
+  };
+
+  const diag2Check = () => {
+    let count = 1;
+
+    const diagDownRightCheck = (x, y) => {
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y + 1] && game[y + 1][x + 1] === val) {
+        count++;
+        diagDownRightCheck(x + 1, y + 1);
+      }
+      return;
+    };
+    
+    const diagUpLeftCheck = (x, y) => {
+      if (count === gameSize) {
+        callback(val);
+        return;
+      }
+      if (game[y - 1] && game[y - 1][x - 1] === val) {
+        count++;
+        diagUpLeftCheck(x - 1, y - 1);
+      }
+      return;
+    };
+
+    diagUpLeftCheck(lastX, lastY);
+    diagDownRightCheck(lastX, lastY);
+  };
+
+  horizontalCheck();
+  vertCheck();
+  diag1Check();
+  diag2Check();
+};
 
