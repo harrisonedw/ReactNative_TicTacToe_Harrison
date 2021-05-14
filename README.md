@@ -7,7 +7,7 @@ Development environment setup using React Native CLI.
 <br>Target OS: iOS
 
 
-## Development Constraints
+## Development Constraints/Requirements
 - Allow 2 players to play tic tac toe (Follow the rules of tic-tac-toe)
 
 - Have a 3x3 grid on which the players can play
