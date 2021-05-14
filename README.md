@@ -4,7 +4,9 @@
 ## Development Setup
 
 Development environment setup using React Native CLI.
-<br>Target OS: iOS
+#### UI designed and tested using xCode simulator:
+Target OS: iOS
+<br> Device: iPhone 12
 
 
 ## Development Constraints/Requirements
@@ -24,7 +26,7 @@ Development environment setup using React Native CLI.
 
 ## Setup/Start Game
 
-Requires Xcode or Android Studio
+Requires Xcode - React Native CLI Env setup.
 
 ### Clone Repo & CD into directory
 ```sh
@@ -40,8 +42,4 @@ npm install
 ### Start React Native Application
 ```sh
 npx react-native run-ios
-```
-or
-```sh
-npx react-native run-android
 ```
