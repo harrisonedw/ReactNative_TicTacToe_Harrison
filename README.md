@@ -19,7 +19,7 @@ Development environment setup using React Native CLI.
 
 - Allow the user to start a new game
 
-- Game logic can accodate any board size (ie. 3 x 3, 5 x 5)
+- Game logic can accomodate any board size (ie. 3 x 3, 5 x 5)
 
 - Game checks for winner from location of last move
 
